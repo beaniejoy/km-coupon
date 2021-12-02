@@ -1,0 +1,18 @@
+version: "3.8"
+services:
+  coupon-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    env_file:
+      - env/app.env
+    depends_on:
+      - coupon-db
+  coupon-db:
+    image: mysql:5.7.34
+    ports:
+      - "3306:3306"
+    env_file:
+      - env/db.env
