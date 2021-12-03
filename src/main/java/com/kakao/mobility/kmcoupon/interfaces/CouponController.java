@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/coupon")
@@ -25,9 +26,7 @@ public class CouponController {
 
     @GetMapping("/list")
     public ResponseEntity<List<CouponResponse>> listUsableCoupons() {
-
         List<Coupon> couponList = couponService.getUsableCouponList();
-
         List<CouponResponse> couponResponseList = couponDtoConvertor.of(couponList);
         return ResponseEntity.ok(couponResponseList);
     }

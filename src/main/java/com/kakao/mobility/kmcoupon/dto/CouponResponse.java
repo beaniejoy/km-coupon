@@ -14,15 +14,13 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CouponResponse {
-    private Long id;
-
     private BigDecimal useMinAmount;
 
     private BigDecimal discountAmount;
 
-    private LocalDateTime usableFrom;
+    private String usableFrom;
 
-    private LocalDateTime usableUntil;
+    private String usableUntil;
 
     private String status;
 }
