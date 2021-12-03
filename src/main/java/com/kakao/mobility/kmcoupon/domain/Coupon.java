@@ -1,6 +1,7 @@
 package com.kakao.mobility.kmcoupon.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "coupon")
 public class Coupon {
@@ -28,6 +30,7 @@ public class Coupon {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @Builder
     public Coupon(
             BigDecimal useMinAmount,
             BigDecimal discountAmount,
