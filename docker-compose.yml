@@ -7,12 +7,24 @@ services:
     ports:
       - "8080:8080"
     env_file:
-      - env/app.env
+      - ./env/app.env
     depends_on:
       - coupon-db
+      - migration
   coupon-db:
     image: mysql:5.7.34
     ports:
       - "3306:3306"
     env_file:
-      - env/db.env
+      - ./env/db.env
+  migration:
+    build:
+      context: ./flyway
+      dockerfile: Dockerfile
+    environment:
+      FLYWAY_EDITION: community
+    volumes:
+      - ${PWD}/flyway/db-migration:/flyway/sql
+      - ${PWD}/flyway/conf:/flyway/conf
+    depends_on:
+      - coupon-db

@@ -1,14 +1,7 @@
-buildscript {
-    ext {
-        flywayVersion = '8.0.2'
-    }
-}
-
 plugins {
     id 'org.springframework.boot' version '2.6.1'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
-    id 'org.flywaydb.flyway' version "${flywayVersion}"
 }
 
 group = 'com.kakao.mobility'
@@ -31,7 +24,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
-    implementation "org.flywaydb:flyway-core:${flywayVersion}"
     runtimeOnly 'mysql:mysql-connector-java'
 
     compileOnly 'org.projectlombok:lombok'
