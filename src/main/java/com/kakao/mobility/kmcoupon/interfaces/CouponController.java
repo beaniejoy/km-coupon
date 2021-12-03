@@ -20,9 +20,9 @@ public class CouponController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<Coupon>> list() {
+    public ResponseEntity<List<Coupon>> usableCouponList() {
 
-        List<Coupon> couponList = couponService.getCouponList();
+        List<Coupon> couponList = couponService.getUsableCouponList();
 
         return ResponseEntity.ok(couponList);
     }

@@ -1,6 +1,7 @@
 package com.kakao.mobility.kmcoupon.application;
 
 import com.kakao.mobility.kmcoupon.domain.Coupon;
+import com.kakao.mobility.kmcoupon.domain.Status;
 import com.kakao.mobility.kmcoupon.infrastructure.CouponRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,8 +18,8 @@ public class CouponService {
     }
 
     @Transactional(readOnly = true)
-    public List<Coupon> getCouponList() {
+    public List<Coupon> getUsableCouponList() {
 
-        return couponRepository.findAll();
+        return couponRepository.findAllByStatusOrderByUsableUntilAscDiscountAmountDesc(Status.NORMAL);
     }
 }
