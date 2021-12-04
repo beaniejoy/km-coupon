@@ -22,6 +22,7 @@ public class TimeRecordResolver implements HandlerMethodArgumentResolver {
                                   ModelAndViewContainer mavContainer,
                                   NativeWebRequest webRequest,
                                   WebDataBinderFactory binderFactory) throws Exception {
+
         return LocalDateTime.now();
     }
 }

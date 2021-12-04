@@ -1,6 +1,5 @@
 package com.kakao.mobility.kmcoupon.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +10,6 @@ import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "coupon")
 public class Coupon {
@@ -48,7 +46,7 @@ public class Coupon {
     public void used() {
         this.status = Status.USED;
     }
-    
+
     public boolean isAlreadyUsed() {
         return this.status == Status.USED;
     }

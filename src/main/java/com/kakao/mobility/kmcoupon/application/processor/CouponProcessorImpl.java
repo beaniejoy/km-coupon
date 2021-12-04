@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class CouponProcessorImpl implements CouponProcessor{
+public class CouponProcessorImpl implements CouponProcessor {
 
     List<CouponValidator> couponValidatorList;
 

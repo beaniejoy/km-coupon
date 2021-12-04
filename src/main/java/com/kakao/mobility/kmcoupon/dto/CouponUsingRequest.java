@@ -1,6 +1,5 @@
 package com.kakao.mobility.kmcoupon.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

@@ -15,8 +15,8 @@ import java.util.List;
         unmappedTargetPolicy = ReportingPolicy.ERROR
 )
 public interface CouponDtoConvertor {
-    @Mapping(source = "coupon.usableFrom", target = "usableFrom", dateFormat = "yyyy-MM-dd")
-    @Mapping(source = "coupon.usableUntil", target = "usableUntil", dateFormat = "yyyy-MM-dd")
+    @Mapping(source = "usableFrom", target = "usableFrom", dateFormat = "yyyy-MM-dd HH:mm:ss")
+    @Mapping(source = "usableUntil", target = "usableUntil", dateFormat = "yyyy-MM-dd HH:mm:ss")
     @Mapping(expression = "java(coupon.getStatus().name())", target = "status")
     CouponResponse of(Coupon coupon);
 

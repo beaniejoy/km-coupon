@@ -38,7 +38,7 @@ public class CouponController {
             @TimeRecord LocalDateTime requestReceivedAt
     ) {
         couponUsingRequest.recordRequestReceivedTime(requestReceivedAt);
-        couponService.useCoupon(couponUsingRequest);
-        return ResponseEntity.ok(null);
+        CouponUsedResponse couponUsedResponse = couponService.useCoupon(couponUsingRequest);
+        return ResponseEntity.ok(couponUsedResponse);
     }
 }
