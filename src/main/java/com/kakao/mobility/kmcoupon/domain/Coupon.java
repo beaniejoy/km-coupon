@@ -44,4 +44,21 @@ public class Coupon {
 
         this.status = Status.NORMAL;
     }
+
+    public void used() {
+        this.status = Status.USED;
+    }
+    
+    public boolean isAlreadyUsed() {
+        return this.status == Status.USED;
+    }
+
+    public boolean isMinAmountBiggerThan(BigDecimal itemAmount) {
+        return this.useMinAmount.compareTo(itemAmount) > 0;
+    }
+
+    public boolean isNotUsableDuration(LocalDateTime requestReceivedTime) {
+        return this.usableFrom.isAfter(requestReceivedTime)
+                || this.usableUntil.isBefore(requestReceivedTime);
+    }
 }
