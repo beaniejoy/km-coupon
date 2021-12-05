@@ -1,1 +1,5 @@
 rootProject.name = 'km-coupon'
+include 'coupon-login-api'
+include 'coupon-common'
+include 'coupon-service-api'
+

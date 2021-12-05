@@ -5,4 +5,4 @@ dockerize -wait tcp://coupon-db:3306 -timeout 20s
 echo "######################## run application ########################"
 java -jar \
   -Dspring.profiles.active=${PROFILE_OPTION} \
-  coupon-app.jar
+  ${SRC_NAME}.jar
