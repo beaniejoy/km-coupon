@@ -1,7 +1,7 @@
 package com.kakao.mobility.kmcoupon.convert;
 
 import com.kakao.mobility.kmcoupon.domain.member.Member;
-import com.kakao.mobility.kmcoupon.dto.MemberRegistrationResponse;
+import com.kakao.mobility.kmcoupon.dto.response.MemberRegistrationResponse;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

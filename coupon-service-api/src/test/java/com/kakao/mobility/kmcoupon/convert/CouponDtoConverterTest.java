@@ -18,7 +18,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(SpringExtension.class)
-class CouponDtoConvertorTest {
+class CouponDtoConverterTest {
     private static final String DATE_FORMAT = "yyyy-MM-dd";
 
     CouponDtoConverter couponDtoConvertor = Mappers.getMapper(CouponDtoConverter.class);

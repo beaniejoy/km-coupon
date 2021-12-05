@@ -10,3 +10,6 @@ spring:
 jwt:
   secret: 12345678901234567890123456789012
   token-valid-in-seconds: 86400 # 하루
+
+server:
+  port: 8081

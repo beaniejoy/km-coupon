@@ -1,4 +1,4 @@
-package com.kakao.mobility.kmcoupon.dto;
+package com.kakao.mobility.kmcoupon.dto.request;
 
 import com.kakao.mobility.kmcoupon.domain.member.Member;
 import lombok.AllArgsConstructor;

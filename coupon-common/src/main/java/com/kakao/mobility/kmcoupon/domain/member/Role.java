@@ -1,7 +1,7 @@
 package com.kakao.mobility.kmcoupon.domain.member;
 
 public enum Role {
-    ADMIN("어드민"), USER("사용자");
+    ROLE_ADMIN("어드민"), ROLE_USER("사용자");
 
     private final String value;
 

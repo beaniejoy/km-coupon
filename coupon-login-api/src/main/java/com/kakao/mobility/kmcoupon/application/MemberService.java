@@ -1,8 +1,7 @@
 package com.kakao.mobility.kmcoupon.application;
 
 import com.kakao.mobility.kmcoupon.domain.member.Member;
-import com.kakao.mobility.kmcoupon.dto.MemberRegistrationRequest;
-import com.kakao.mobility.kmcoupon.dto.MemberRegistrationResponse;
+import com.kakao.mobility.kmcoupon.dto.request.MemberRegistrationRequest;
 import com.kakao.mobility.kmcoupon.exception.InvalidRequestException;
 import com.kakao.mobility.kmcoupon.repository.MemberRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -34,7 +33,6 @@ public class MemberService {
     private Member createMember(MemberRegistrationRequest registrationRequest) {
         return new Member(
                 registrationRequest.getEmail(),
-                passwordEncoder.encode(registrationRequest.getPassword())
-        );
+                passwordEncoder.encode(registrationRequest.getPassword()));
     }
 }

@@ -7,13 +7,18 @@ import com.kakao.mobility.kmcoupon.domain.coupon.Coupon;
 import com.kakao.mobility.kmcoupon.dto.CouponResponse;
 import com.kakao.mobility.kmcoupon.dto.CouponUsedResponse;
 import com.kakao.mobility.kmcoupon.dto.CouponUsingRequest;
+import io.jsonwebtoken.Claims;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/coupon")
 public class CouponController {
@@ -27,6 +32,7 @@ public class CouponController {
     }
 
     @GetMapping("/usable")
+    @PreAuthorize("hasAnyRole('USER')")
     public ResponseEntity<List<CouponResponse>> listUsableCoupons(
             @TimeRecord LocalDateTime requestReceivedAt
     ) {
@@ -36,6 +42,7 @@ public class CouponController {
     }
 
     @PostMapping("/use")
+    @PreAuthorize("hasAnyRole('USER')")
     public ResponseEntity<CouponUsedResponse> useCoupon(
             @Valid @RequestBody CouponUsingRequest couponUsingRequest,
             @TimeRecord LocalDateTime requestReceivedAt
