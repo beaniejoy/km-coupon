@@ -28,14 +28,14 @@ public class CouponService {
     }
 
     @Transactional(readOnly = true)
-    public List<Coupon> getUsableCouponList(LocalDateTime requestReceivedAt) {
-        return couponRepository.findAllUsableCoupon(Status.NORMAL.toString(), requestReceivedAt.toString());
+    public List<Coupon> getUsableCouponList(Long memberId, LocalDateTime requestReceivedAt) {
+        return couponRepository.findAllUsableCoupon(memberId, Status.NORMAL.toString(), requestReceivedAt.toString());
     }
 
     @Transactional
-    public CouponUsedResponse useCoupon(CouponUsingRequest couponUsingRequest) {
+    public CouponUsedResponse useCoupon(Long memberId, CouponUsingRequest couponUsingRequest) {
         Long couponId = couponUsingRequest.getCouponId();
-        Coupon coupon = couponRepository.findById(couponId)
+        Coupon coupon = couponRepository.findByIdAndMemberId(couponId, memberId)
                 .orElseThrow(() -> new EntityNotFoundException(CouponErrorMessage.COUPON_NOT_FOUND));
         couponProcessor.useCoupon(coupon, couponUsingRequest);
 

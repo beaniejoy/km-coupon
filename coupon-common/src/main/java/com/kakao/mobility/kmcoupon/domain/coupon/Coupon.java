@@ -28,17 +28,20 @@ public class Coupon {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    private Long memberId;
+
     @Builder
     public Coupon(
             BigDecimal useMinAmount,
             BigDecimal discountAmount,
             LocalDateTime usableFrom,
-            LocalDateTime usableUntil) {
-
+            LocalDateTime usableUntil,
+            Long memberId) {
         this.useMinAmount = useMinAmount;
         this.discountAmount = discountAmount;
         this.usableFrom = usableFrom;
         this.usableUntil = usableUntil;
+        this.memberId = memberId;
 
         this.status = Status.NORMAL;
     }

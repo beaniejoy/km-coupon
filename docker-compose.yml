@@ -5,11 +5,23 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8081:8080"
+      - "8080:8080"
     env_file:
       - ./env/app.env
     environment:
       - SRC_NAME=coupon-service-api
+    depends_on:
+      - migration
+  coupon-login-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8080"
+    env_file:
+      - ./env/app.env
+    environment:
+      - SRC_NAME=coupon-login-api
     depends_on:
       - migration
   coupon-db:

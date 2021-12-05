@@ -1,6 +1,6 @@
 CREATE TABLE `member` (
     `id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT '사용자 ID',
-    `email` decimal(10,2) NOT NULL COMMENT '사용자 이메일',
+    `email` varchar(20) NOT NULL COMMENT '사용자 이메일',
     `password` varchar(500) NOT NULL COMMENT '사용자 비밀번호',
     `role` varchar(20) NOT NULL COMMENT '사용자 권한(ADMIN, USER)',
     `created_at` datetime NOT NULL COMMENT '사용자 계정 생성일시',
