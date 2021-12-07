@@ -3,7 +3,6 @@ package com.kakao.mobility.kmcoupon.application;
 import com.kakao.mobility.kmcoupon.application.processor.CouponProcessor;
 import com.kakao.mobility.kmcoupon.domain.coupon.Coupon;
 import com.kakao.mobility.kmcoupon.domain.coupon.Status;
-import com.kakao.mobility.kmcoupon.dto.CouponUsedResponse;
 import com.kakao.mobility.kmcoupon.dto.CouponUsingRequest;
 import com.kakao.mobility.kmcoupon.exception.CouponErrorMessage;
 import com.kakao.mobility.kmcoupon.exception.EntityNotFoundException;
@@ -33,12 +32,12 @@ public class CouponService {
     }
 
     @Transactional
-    public CouponUsedResponse useCoupon(Long memberId, CouponUsingRequest couponUsingRequest) {
+    public Coupon useCoupon(Long memberId, CouponUsingRequest couponUsingRequest) {
         Long couponId = couponUsingRequest.getCouponId();
         Coupon coupon = couponRepository.findByIdAndMemberId(couponId, memberId)
                 .orElseThrow(() -> new EntityNotFoundException(CouponErrorMessage.COUPON_NOT_FOUND));
         couponProcessor.useCoupon(coupon, couponUsingRequest);
 
-        return CouponUsedResponse.makeUsedResponse(coupon, couponUsingRequest);
+        return coupon;
     }
 }

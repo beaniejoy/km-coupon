@@ -1,15 +1,9 @@
 package com.kakao.mobility.kmcoupon.domain.coupon;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Getter
-@NoArgsConstructor
 @Entity
 @Table(name = "coupon")
 public class Coupon {
@@ -30,7 +24,9 @@ public class Coupon {
 
     private Long memberId;
 
-    @Builder
+    public Coupon() {
+    }
+
     public Coupon(
             BigDecimal useMinAmount,
             BigDecimal discountAmount,
@@ -44,6 +40,34 @@ public class Coupon {
         this.memberId = memberId;
 
         this.status = Status.NORMAL;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public BigDecimal getUseMinAmount() {
+        return useMinAmount;
+    }
+
+    public BigDecimal getDiscountAmount() {
+        return discountAmount;
+    }
+
+    public LocalDateTime getUsableFrom() {
+        return usableFrom;
+    }
+
+    public LocalDateTime getUsableUntil() {
+        return usableUntil;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public Long getMemberId() {
+        return memberId;
     }
 
     public void used() {
