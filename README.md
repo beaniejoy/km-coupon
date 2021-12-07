@@ -48,3 +48,13 @@ $ docker-compose up --build
 
 ## DDL
 - [flyway/db-migration/table/](https://github.com/beaniejoy/km-coupon/tree/main/flyway/db-migration/table)
+
+## 체크사항
+- lombok, mapstruct 제거
+  - 생성자, getter 등 직접 구성
+- api request 형식 다시 생각해보기
+  - swagger로 확인
+- 범용적으로 사용 가능한 interface에 대한 생각
+  - validator 결국엔 특정 request에 종속되는 문제
+  - service 단에서 dto를 만들고 return 하는 방식은 특정 api에만 제한적으로 사용될 수 밖에 없음
+    - entity 직접 반환 (혹은 entity 내용을 그대로 copy한 객체로 반환)
