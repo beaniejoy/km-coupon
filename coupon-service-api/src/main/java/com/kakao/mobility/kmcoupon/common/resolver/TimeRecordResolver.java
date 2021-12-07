@@ -1,6 +1,7 @@
 package com.kakao.mobility.kmcoupon.common.resolver;
 
 import com.kakao.mobility.kmcoupon.annotation.TimeRecord;
+import com.kakao.mobility.kmcoupon.dto.TimeRecordRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -23,6 +24,7 @@ public class TimeRecordResolver implements HandlerMethodArgumentResolver {
                                   NativeWebRequest webRequest,
                                   WebDataBinderFactory binderFactory) throws Exception {
 
-        return LocalDateTime.now();
+
+        return new TimeRecordRequest(LocalDateTime.now());
     }
 }

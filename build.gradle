@@ -1,9 +1,10 @@
 buildscript {
     ext {
         mapstructVersion = '1.4.2.Final'
-        springBootVersion = '2.6.1'
+        springBootVersion = '2.5.7'
         dependencyManagementVersion = '1.0.11.RELEASE'
         jwtVersion = '0.11.2'
+        swaggerVersion = '2.9.2'
     }
 
     repositories {
@@ -43,6 +44,10 @@ subprojects {
         implementation 'org.springframework.boot:spring-boot-starter-validation'
         implementation 'org.springframework.boot:spring-boot-starter-security'
 
+        compileOnly group: 'io.springfox', name: 'springfox-swagger-ui', version: "${swaggerVersion}"
+        compileOnly group: 'io.springfox', name: 'springfox-swagger2', version: "${swaggerVersion}"
+
+        // lombok, mapstruct 사용 X - 코틀린 호환에 좋지 않음
         compileOnly 'org.projectlombok:lombok'
         implementation "org.mapstruct:mapstruct:${mapstructVersion}"
         annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"

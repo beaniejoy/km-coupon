@@ -8,21 +8,21 @@ import com.kakao.mobility.kmcoupon.domain.member.SecurityUser;
 import com.kakao.mobility.kmcoupon.dto.CouponResponse;
 import com.kakao.mobility.kmcoupon.dto.CouponUsedResponse;
 import com.kakao.mobility.kmcoupon.dto.CouponUsingRequest;
-import io.jsonwebtoken.Claims;
+import com.kakao.mobility.kmcoupon.dto.TimeRecordRequest;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
 @RestController
 @RequestMapping("/api/v1/coupon")
+@Api(tags = {"쿠폰 API"})
 public class CouponController {
 
     private final CouponService couponService;
@@ -34,26 +34,26 @@ public class CouponController {
     }
 
     @GetMapping("/usable")
-    @PreAuthorize("hasAnyRole('USER')")
+    @ApiOperation(value = "사용가능 쿠폰 조회")
     public ResponseEntity<List<CouponResponse>> listUsableCoupons(
-            @AuthenticationPrincipal SecurityUser securityUser,
-            @TimeRecord LocalDateTime requestReceivedAt
+            @TimeRecord TimeRecordRequest timeRecordRequest
     ) {
-        Long memberId = securityUser.getMemberId();
-        List<Coupon> couponList = couponService.getUsableCouponList(memberId, requestReceivedAt);
+        SecurityUser principal = (SecurityUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Long memberId = principal.getMemberId();
+        List<Coupon> couponList = couponService.getUsableCouponList(memberId, timeRecordRequest.getRequestReceivedAt());
         List<CouponResponse> couponResponseList = couponDtoConvertor.of(couponList);
         return ResponseEntity.ok(couponResponseList);
     }
 
     @PostMapping("/use")
-    @PreAuthorize("hasAnyRole('USER')")
+    @ApiOperation(value = "쿠폰 사용")
     public ResponseEntity<CouponUsedResponse> useCoupon(
             @Valid @RequestBody CouponUsingRequest couponUsingRequest,
-            @AuthenticationPrincipal SecurityUser securityUser,
-            @TimeRecord LocalDateTime requestReceivedAt
+            @TimeRecord TimeRecordRequest timeRecordRequest
     ) {
-        Long memberId = securityUser.getMemberId();
-        couponUsingRequest.recordRequestReceivedTime(requestReceivedAt);
+        SecurityUser principal = (SecurityUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Long memberId = principal.getMemberId();
+        couponUsingRequest.recordRequestReceivedTime(timeRecordRequest.getRequestReceivedAt());
         CouponUsedResponse couponUsedResponse = couponService.useCoupon(memberId, couponUsingRequest);
         return ResponseEntity.ok(couponUsedResponse);
     }

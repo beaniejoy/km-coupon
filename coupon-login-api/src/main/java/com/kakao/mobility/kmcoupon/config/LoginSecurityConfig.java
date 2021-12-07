@@ -41,12 +41,6 @@ public class LoginSecurityConfig extends WebSecurityConfigurerAdapter {
                 .accessDeniedHandler(customAccessDeniedHandler)
 
                 .and()
-                .authorizeRequests()
-                .antMatchers("/api/v1/auth").permitAll()
-                .antMatchers("/api/v1/member/signup").permitAll()
-                .anyRequest().authenticated()
-
-                .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS); // 세션 사용 X, 토큰 방식
     }

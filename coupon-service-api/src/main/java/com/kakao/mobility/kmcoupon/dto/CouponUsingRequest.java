@@ -16,6 +16,7 @@ public class CouponUsingRequest {
     @NotNull(message = "상품 가격은 필수 입력값입니다.")
     private BigDecimal itemAmount;
 
+    // ???
     private LocalDateTime requestReceivedAt;
 
     public CouponUsingRequest(Long couponId, BigDecimal itemAmount) {
