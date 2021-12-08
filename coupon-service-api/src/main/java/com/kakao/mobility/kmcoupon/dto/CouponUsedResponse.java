@@ -1,11 +1,9 @@
 package com.kakao.mobility.kmcoupon.dto;
 
 import com.kakao.mobility.kmcoupon.domain.coupon.Coupon;
-import lombok.Getter;
 
 import java.math.BigDecimal;
 
-@Getter
 public class CouponUsedResponse {
     private BigDecimal itemAmount;
 
@@ -17,6 +15,18 @@ public class CouponUsedResponse {
         this.itemAmount = itemAmount;
         this.payAmount = payAmount;
         this.actualDiscountAmount = actualDiscountAmount;
+    }
+
+    public BigDecimal getItemAmount() {
+        return itemAmount;
+    }
+
+    public BigDecimal getPayAmount() {
+        return payAmount;
+    }
+
+    public BigDecimal getActualDiscountAmount() {
+        return actualDiscountAmount;
     }
 
     public static CouponUsedResponse makeUsedResponse(Coupon coupon, CouponUsingRequest request) {

@@ -1,12 +1,9 @@
 package com.kakao.mobility.kmcoupon.dto;
 
-import lombok.Getter;
-
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Getter
 public class CouponUsingRequest {
     @NotNull(message = "쿠폰 ID는 필수 입력값입니다.")
     private Long couponId;
@@ -20,5 +17,17 @@ public class CouponUsingRequest {
         this.couponId = couponId;
         this.itemAmount = itemAmount;
         this.requestReceivedAt = LocalDateTime.now();
+    }
+
+    public Long getCouponId() {
+        return couponId;
+    }
+
+    public BigDecimal getItemAmount() {
+        return itemAmount;
+    }
+
+    public LocalDateTime getRequestReceivedAt() {
+        return requestReceivedAt;
     }
 }

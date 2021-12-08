@@ -1,10 +1,7 @@
 package com.kakao.mobility.kmcoupon.dto;
 
-import lombok.Getter;
-
 import java.math.BigDecimal;
 
-@Getter
 public class CouponResponse {
     private Long id;
 
@@ -25,5 +22,29 @@ public class CouponResponse {
         this.usableFrom = usableFrom;
         this.usableUntil = usableUntil;
         this.status = status;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public BigDecimal getUseMinAmount() {
+        return useMinAmount;
+    }
+
+    public BigDecimal getDiscountAmount() {
+        return discountAmount;
+    }
+
+    public String getUsableFrom() {
+        return usableFrom;
+    }
+
+    public String getUsableUntil() {
+        return usableUntil;
+    }
+
+    public String getStatus() {
+        return status;
     }
 }

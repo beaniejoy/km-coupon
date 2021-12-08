@@ -1,14 +1,9 @@
 package com.kakao.mobility.kmcoupon.domain.member;
 
 import com.kakao.mobility.kmcoupon.domain.BaseTimeEntity;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Getter
-@NoArgsConstructor
 @Entity
 @Table(name = "member")
 public class Member extends BaseTimeEntity {
@@ -23,12 +18,30 @@ public class Member extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @Builder
+    public Member() {
+    }
+
     public Member(String email, String password) {
         // TODO 제약 조건 추가
         this.email = email;
         this.password = password;
 
         this.role = Role.ROLE_USER;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public Role getRole() {
+        return role;
     }
 }

@@ -1,7 +1,6 @@
 package com.kakao.mobility.kmcoupon.interfaces;
 
 import com.kakao.mobility.kmcoupon.application.MemberService;
-import com.kakao.mobility.kmcoupon.convert.MemberDtoConverter;
 import com.kakao.mobility.kmcoupon.domain.member.Member;
 import com.kakao.mobility.kmcoupon.dto.request.MemberRegistrationRequest;
 import com.kakao.mobility.kmcoupon.dto.response.MemberRegistrationResponse;
@@ -21,11 +20,9 @@ import javax.validation.Valid;
 public class MemberController {
 
     private final MemberService memberService;
-    private final MemberDtoConverter memberDtoConverter;
 
-    public MemberController(MemberService memberService, MemberDtoConverter memberDtoConverter) {
+    public MemberController(MemberService memberService) {
         this.memberService = memberService;
-        this.memberDtoConverter = memberDtoConverter;
     }
 
     @PostMapping("/signup")
@@ -33,7 +30,8 @@ public class MemberController {
     public ResponseEntity<MemberRegistrationResponse> signUp(
             @Valid @RequestBody MemberRegistrationRequest registrationRequest) {
         Member created = memberService.registerMember(registrationRequest);
-        MemberRegistrationResponse registrationResponse = memberDtoConverter.of(created);
+        MemberRegistrationResponse registrationResponse = new MemberRegistrationResponse(created.getEmail(), created.getRole().name());
+
         return ResponseEntity.ok(registrationResponse);
     }
 }
