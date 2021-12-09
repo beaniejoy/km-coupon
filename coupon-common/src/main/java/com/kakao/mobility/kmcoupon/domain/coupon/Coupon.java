@@ -86,4 +86,20 @@ public class Coupon {
         return this.usableFrom.isAfter(requestReceivedTime)
                 || this.usableUntil.isBefore(requestReceivedTime);
     }
+
+    public BigDecimal calPayAmount(BigDecimal itemAmount) {
+        if (itemAmount.compareTo(this.discountAmount) <= 0) {
+            return BigDecimal.ZERO;
+        } else {
+            return itemAmount.subtract(this.discountAmount);
+        }
+    }
+
+    public BigDecimal calActualDiscountAmount(BigDecimal itemAmount) {
+        if (itemAmount.compareTo(this.discountAmount) <= 0) {
+            return itemAmount;
+        } else {
+            return discountAmount;
+        }
+    }
 }

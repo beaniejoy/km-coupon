@@ -42,7 +42,8 @@ public class ServiceSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/v1/coupon").hasAnyRole("USER")
+                .antMatchers("/api/v1/coupons/**").hasAnyRole("USER")
+                .anyRequest().permitAll()
 
                 .and()
                 .sessionManagement()

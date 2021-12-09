@@ -2,7 +2,6 @@ package com.kakao.mobility.kmcoupon.application;
 
 import com.kakao.mobility.kmcoupon.domain.coupon.Coupon;
 import com.kakao.mobility.kmcoupon.domain.coupon.Status;
-import com.kakao.mobility.kmcoupon.dto.CouponUsingRequest;
 import com.kakao.mobility.kmcoupon.exception.CouponErrorMessage;
 import com.kakao.mobility.kmcoupon.exception.EntityNotFoundException;
 import com.kakao.mobility.kmcoupon.exception.InvalidRequestException;
@@ -28,23 +27,20 @@ public class CouponService {
 
     @Transactional(readOnly = true)
     public List<Coupon> getUsableCouponList(Long memberId, LocalDateTime requestReceivedAt) {
-        return couponRepository.findAllUsableCoupon(memberId, Status.NORMAL.toString(), requestReceivedAt.toString());
+        return couponRepository.findAllUsableCoupon(memberId, Status.NORMAL.name(), requestReceivedAt.toString());
     }
 
     @Transactional
-    public Coupon useCoupon(Long memberId, CouponUsingRequest couponUsingRequest) {
-        Long couponId = couponUsingRequest.getCouponId();
+    public Coupon useCoupon(Long memberId, Long couponId, BigDecimal itemAmount, LocalDateTime requestReceivedTime) {
         Coupon coupon = couponRepository.findByIdAndMemberId(couponId, memberId)
                 .orElseThrow(() -> new EntityNotFoundException(CouponErrorMessage.COUPON_NOT_FOUND));
 
         if (coupon.isAlreadyUsed())
             throw new InvalidStatusException(CouponErrorMessage.COUPON_ALREADY_USED);
 
-        BigDecimal itemAmount = couponUsingRequest.getItemAmount();
         if (coupon.isMinAmountBiggerThan(itemAmount))
             throw new InvalidRequestException(CouponErrorMessage.COUPON_MIN_AMOUNT_NOT_SATISFIED);
 
-        LocalDateTime requestReceivedTime = couponUsingRequest.getRequestReceivedAt();
         if (coupon.isNotUsableDuration(requestReceivedTime))
             throw new InvalidRequestException(CouponErrorMessage.COUPON_NOT_USABLE_DURATION);
 

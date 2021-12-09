@@ -1,7 +1,5 @@
 package com.kakao.mobility.kmcoupon.dto;
 
-import com.kakao.mobility.kmcoupon.domain.coupon.Coupon;
-
 import java.math.BigDecimal;
 
 public class CouponUsedResponse {
@@ -27,23 +25,5 @@ public class CouponUsedResponse {
 
     public BigDecimal getActualDiscountAmount() {
         return actualDiscountAmount;
-    }
-
-    public static CouponUsedResponse makeUsedResponse(Coupon coupon, CouponUsingRequest request) {
-        BigDecimal itemAmount = request.getItemAmount();
-        BigDecimal discountAmount = coupon.getDiscountAmount();
-
-        BigDecimal payAmount = null;
-        BigDecimal actualDiscountAmount = null;
-
-        if (itemAmount.compareTo(discountAmount) <= 0) {
-            payAmount = BigDecimal.ZERO;
-            actualDiscountAmount = itemAmount;
-        } else {
-            payAmount = itemAmount.subtract(discountAmount);
-            actualDiscountAmount = discountAmount;
-        }
-
-        return new CouponUsedResponse(itemAmount, payAmount, actualDiscountAmount);
     }
 }
