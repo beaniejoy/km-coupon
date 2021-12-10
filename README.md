@@ -2,6 +2,7 @@
 
 ## Spec
 - Java 8
+- Kotlin 1.5.32
 - Spring Boot 2.6.1
 - MySQL 5.7.34
 - docker
