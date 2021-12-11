@@ -1,18 +1,18 @@
 package com.kakao.mobility.kmcoupon
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
-import java.util.TimeZone
 import kotlin.jvm.JvmStatic
 import org.springframework.boot.SpringApplication
-import com.kakao.mobility.kmcoupon.CouponServiceApiApplication
+import com.kakao.mobility.kmcoupon.CouponLoginApiApplication
+import java.util.*
 import javax.annotation.PostConstruct
 
 @SpringBootApplication
-class CouponServiceApiApplication {
+class CouponLoginApiApplication {
     companion object {
         @JvmStatic
         fun main(args: Array<String>) {
-            SpringApplication.run(CouponServiceApiApplication::class.java, *args)
+            SpringApplication.run(CouponLoginApiApplication::class.java, *args)
         }
     }
 
