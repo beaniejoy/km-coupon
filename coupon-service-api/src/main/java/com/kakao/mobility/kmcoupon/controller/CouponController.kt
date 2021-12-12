@@ -1,6 +1,6 @@
-package com.kakao.mobility.kmcoupon.interfaces
+package com.kakao.mobility.kmcoupon.controller
 
-import com.kakao.mobility.kmcoupon.application.CouponService
+import com.kakao.mobility.kmcoupon.service.CouponService
 import com.kakao.mobility.kmcoupon.domain.coupon.Coupon
 import com.kakao.mobility.kmcoupon.domain.member.SecurityUser
 import com.kakao.mobility.kmcoupon.dto.CouponResponse
@@ -27,9 +27,11 @@ class CouponController(
     @GetMapping("/usable")
     @ApiOperation(value = "사용가능 쿠폰 조회")
     fun listUsableCoupons(): List<CouponResponse> {
-        val principal = SecurityContextHolder.getContext().authentication.principal as SecurityUser
-        val memberId = principal.memberId
-        val couponList = couponService.getUsableCouponList(memberId, LocalDateTime.now())
+        val couponList = couponService.getUsableCouponList(
+            memberId = getSecurityUser().memberId,
+            requestReceivedAt = LocalDateTime.now()
+        )
+
         return couponList.map { toCouponResponse(it) }
     }
 
@@ -39,25 +41,33 @@ class CouponController(
         @PathVariable("couponId") couponId: Long,
         @Valid @RequestBody couponUsingRequest: CouponUsingRequest
     ): CouponUsedResponse {
-        val principal = SecurityContextHolder.getContext().authentication.principal as SecurityUser
-        val memberId = principal.memberId
         val itemAmount = couponUsingRequest.itemAmount
-        val usedCoupon = couponService.useCoupon(memberId, couponId, itemAmount, LocalDateTime.now())
-        return CouponUsedResponse(
-            itemAmount,
-            usedCoupon.calPayAmount(itemAmount),
-            usedCoupon.calActualDiscountAmount(itemAmount)
+        val usedCoupon: Coupon = couponService.useCoupon(
+            memberId = getSecurityUser().memberId,
+            couponId = couponId,
+            itemAmount = itemAmount,
+            requestReceivedTime = LocalDateTime.now()
         )
+
+        return CouponUsedResponse(
+            itemAmount = itemAmount,
+            payAmount = usedCoupon.calPayAmount(itemAmount),
+            actualDiscountAmount = usedCoupon.calActualDiscountAmount(itemAmount)
+        )
+    }
+
+    private fun getSecurityUser(): SecurityUser {
+        return SecurityContextHolder.getContext().authentication.principal as SecurityUser
     }
 
     private fun toCouponResponse(coupon: Coupon): CouponResponse {
         return CouponResponse(
-            coupon.id,
-            coupon.useMinAmount,
-            coupon.discountAmount,
-            coupon.usableFrom.format(DateTimeFormatter.ofPattern(DATE_FORMAT)),
-            coupon.usableUntil.format(DateTimeFormatter.ofPattern(DATE_FORMAT)),
-            coupon.status.name
+            id = coupon.id,
+            useMinAmount = coupon.useMinAmount,
+            discountAmount = coupon.discountAmount,
+            usableFrom = coupon.usableFrom.format(DateTimeFormatter.ofPattern(DATE_FORMAT)),
+            usableUntil = coupon.usableUntil.format(DateTimeFormatter.ofPattern(DATE_FORMAT)),
+            status = coupon.status.name
         )
     }
 }

@@ -1,6 +1,6 @@
 package com.kakao.mobility.kmcoupon.config
 
-import com.kakao.mobility.kmcoupon.application.CustomAuthenticationProvider
+import com.kakao.mobility.kmcoupon.service.CustomAuthenticationProvider
 import com.kakao.mobility.kmcoupon.exception.CustomAccessDeniedHandler
 import com.kakao.mobility.kmcoupon.util.JwtTokenUtil
 import org.springframework.beans.factory.annotation.Value

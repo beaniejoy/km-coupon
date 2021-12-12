@@ -1,6 +1,6 @@
-package com.kakao.mobility.kmcoupon.interfaces
+package com.kakao.mobility.kmcoupon.controller
 
-import com.kakao.mobility.kmcoupon.application.AuthService
+import com.kakao.mobility.kmcoupon.service.AuthService
 import com.kakao.mobility.kmcoupon.dto.request.LoginRequest
 import com.kakao.mobility.kmcoupon.dto.response.TokenResponse
 import com.kakao.mobility.kmcoupon.util.JwtTokenUtil
@@ -22,7 +22,11 @@ class AuthController(
     @PostMapping("/api/v1/auth")
     @ApiOperation(value = "로그인")
     fun signIn(@Valid @RequestBody loginRequest: LoginRequest): ResponseEntity<TokenResponse> {
-        val authenticatedMember = authService.authenticateMember(loginRequest.email, loginRequest.password)
+        val authenticatedMember = authService.authenticateMember(
+            email = loginRequest.email,
+            password = loginRequest.password
+        )
+
         SecurityContextHolder.getContext().authentication = authenticatedMember
         val token = jwtTokenUtil.createToken(authenticatedMember)
         return ResponseEntity.ok(TokenResponse(token))

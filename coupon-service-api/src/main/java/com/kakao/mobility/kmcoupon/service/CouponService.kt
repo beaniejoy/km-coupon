@@ -1,4 +1,4 @@
-package com.kakao.mobility.kmcoupon.application
+package com.kakao.mobility.kmcoupon.service
 
 import com.kakao.mobility.kmcoupon.domain.coupon.Coupon
 import com.kakao.mobility.kmcoupon.domain.coupon.Status
@@ -16,7 +16,11 @@ import java.time.LocalDateTime
 class CouponService(private val couponRepository: CouponRepository) {
     @Transactional(readOnly = true)
     fun getUsableCouponList(memberId: Long, requestReceivedAt: LocalDateTime): List<Coupon> {
-        return couponRepository.findAllUsableCoupon(memberId, Status.NORMAL.name, requestReceivedAt.toString())
+        return couponRepository.findAllUsableCoupon(
+            memberId = memberId,
+            status = Status.NORMAL.name,
+            requestedAt = requestReceivedAt.toString()
+        )
     }
 
     @Transactional
@@ -32,6 +36,7 @@ class CouponService(private val couponRepository: CouponRepository) {
         if (coupon.isAlreadyUsed) throw InvalidStatusException(CouponErrorMessage.COUPON_ALREADY_USED)
         if (coupon.isMinAmountBiggerThan(itemAmount)) throw InvalidRequestException(CouponErrorMessage.COUPON_MIN_AMOUNT_NOT_SATISFIED)
         if (coupon.isNotUsableDuration(requestReceivedTime)) throw InvalidRequestException(CouponErrorMessage.COUPON_NOT_USABLE_DURATION)
+
         coupon.used()
 
         return coupon

@@ -1,4 +1,4 @@
-package com.kakao.mobility.kmcoupon.application
+package com.kakao.mobility.kmcoupon.service
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder

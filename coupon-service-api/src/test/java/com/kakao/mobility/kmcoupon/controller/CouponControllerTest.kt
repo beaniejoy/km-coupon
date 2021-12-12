@@ -1,6 +1,6 @@
-package com.kakao.mobility.kmcoupon.interfaces
+package com.kakao.mobility.kmcoupon.controller
 
-import com.kakao.mobility.kmcoupon.application.CouponService
+import com.kakao.mobility.kmcoupon.service.CouponService
 import com.kakao.mobility.kmcoupon.domain.coupon.Coupon
 import com.kakao.mobility.kmcoupon.dto.CouponResponse
 import org.junit.jupiter.api.Test

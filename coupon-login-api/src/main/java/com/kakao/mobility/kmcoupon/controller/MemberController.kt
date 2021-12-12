@@ -1,6 +1,6 @@
-package com.kakao.mobility.kmcoupon.interfaces
+package com.kakao.mobility.kmcoupon.controller
 
-import com.kakao.mobility.kmcoupon.application.MemberService
+import com.kakao.mobility.kmcoupon.service.MemberService
 import com.kakao.mobility.kmcoupon.dto.request.MemberRegistrationRequest
 import com.kakao.mobility.kmcoupon.dto.response.MemberRegistrationResponse
 import io.swagger.annotations.Api
@@ -23,8 +23,12 @@ class MemberController(
     fun signUp(
         @Valid @RequestBody registrationRequest: MemberRegistrationRequest
     ): ResponseEntity<MemberRegistrationResponse> {
+
         val created = memberService.registerMember(registrationRequest)
-        val registrationResponse = MemberRegistrationResponse(created.email, created.role.name)
+        val registrationResponse = MemberRegistrationResponse(
+            email = created.email,
+            role = created.role.name
+        )
         return ResponseEntity.ok(registrationResponse)
     }
 }

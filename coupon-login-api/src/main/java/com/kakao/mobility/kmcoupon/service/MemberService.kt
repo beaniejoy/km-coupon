@@ -1,4 +1,4 @@
-package com.kakao.mobility.kmcoupon.application
+package com.kakao.mobility.kmcoupon.service
 
 import com.kakao.mobility.kmcoupon.domain.member.Member
 import com.kakao.mobility.kmcoupon.dto.request.MemberRegistrationRequest
