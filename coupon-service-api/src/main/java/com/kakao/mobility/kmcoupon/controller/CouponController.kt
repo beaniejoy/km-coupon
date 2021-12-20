@@ -42,7 +42,9 @@ class CouponController(
         @Valid @RequestBody couponUsingRequest: CouponUsingRequest
     ): CouponUsedResponse {
         val itemAmount = couponUsingRequest.itemAmount
+        // 계산을 service 단계에서 완료되도록
         val usedCoupon: Coupon = couponService.useCoupon(
+            // 항상 Null check
             memberId = getSecurityUser().memberId,
             couponId = couponId,
             itemAmount = itemAmount,
@@ -50,6 +52,7 @@ class CouponController(
         )
 
         return CouponUsedResponse(
+            // entity 가져다 사용안할거기때문에 변경해야함
             itemAmount = itemAmount,
             payAmount = usedCoupon.calPayAmount(itemAmount),
             actualDiscountAmount = usedCoupon.calActualDiscountAmount(itemAmount)

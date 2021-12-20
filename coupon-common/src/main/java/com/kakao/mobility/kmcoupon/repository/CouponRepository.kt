@@ -16,6 +16,7 @@ interface CouponRepository : JpaRepository<Coupon?, Long?> {
                 "AND usable_until >= str_to_date(:requestedAt, '%Y-%m-%dT%H:%i:%s') " +
                 "ORDER BY usable_until ASC, discount_amount DESC", nativeQuery = true
     )
+    // query method (native query x)
     fun findAllUsableCoupon(
         @Param("memberId") memberId: Long,
         @Param("status") status: String,
