@@ -32,7 +32,7 @@ class Coupon(
     @Column(name = "member_id")
     var memberId: Long = 0L
 ) : BaseTimeEntity() {
-    fun isAlreadyUsed: Boolean {
+    fun isAlreadyUsed(): Boolean {
         return status == Status.USED
     }
 
