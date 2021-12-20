@@ -38,7 +38,7 @@ class CouponService(private val couponRepository: CouponRepository) {
             .orElseThrow { EntityNotFoundException(CouponErrorMessage.COUPON_NOT_FOUND) }
 
         // 일관성 유지하는 것이 좋음 (fun 으로)
-        if (coupon.isAlreadyUsed) throw InvalidStatusException(CouponErrorMessage.COUPON_ALREADY_USED)
+        if (coupon.isAlreadyUsed()) throw InvalidStatusException(CouponErrorMessage.COUPON_ALREADY_USED)
         if (coupon.isMinAmountBiggerThan(itemAmount)) throw InvalidRequestException(CouponErrorMessage.COUPON_MIN_AMOUNT_NOT_SATISFIED)
         if (coupon.isNotUsableDuration(requestReceivedTime)) throw InvalidRequestException(CouponErrorMessage.COUPON_NOT_USABLE_DURATION)
 

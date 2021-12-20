@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
 import java.util.*
 
-interface CouponRepository : JpaRepository<Coupon?, Long?> {
+interface CouponRepository : JpaRepository<Coupon, Long> {
     @Query(
         value = "SELECT * " +
                 "FROM coupon " +
