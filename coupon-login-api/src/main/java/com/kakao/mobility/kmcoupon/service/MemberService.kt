@@ -16,8 +16,10 @@ class MemberService(
     @Transactional
     fun registerMember(registrationRequest: MemberRegistrationRequest): Member {
         val email = registrationRequest.email
-        memberRepository.findByEmail(email)
-            .orElseThrow { InvalidRequestException("해당 이메일[${email}]은 이미 등록된 계정입니다.") }
+        val foundMember = memberRepository.findByEmail(email)
+        foundMember.ifPresent {
+            throw InvalidRequestException("해당 이메일[${email}]은 이미 등록된 계정입니다.") }
+
 
         return memberRepository.save(createMember(registrationRequest))
     }
