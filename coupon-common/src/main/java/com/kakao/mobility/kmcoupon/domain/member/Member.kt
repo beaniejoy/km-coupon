@@ -1,6 +1,7 @@
 package com.kakao.mobility.kmcoupon.domain.member
 
 import com.kakao.mobility.kmcoupon.domain.BaseTimeEntity
+import com.kakao.mobility.kmcoupon.domain.coupon.Coupon
 import javax.persistence.*
 
 @Entity
@@ -18,5 +19,9 @@ class Member(
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
-    var role: Role = Role.ROLE_USER
+    var role: Role = Role.ROLE_USER,
+
+    @OneToMany(mappedBy = "member")
+    var coupons: MutableList<Coupon>
+
 ) : BaseTimeEntity()

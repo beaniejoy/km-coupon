@@ -2,6 +2,7 @@ package com.kakao.mobility.kmcoupon.service
 
 import com.kakao.mobility.kmcoupon.domain.coupon.Coupon
 import com.kakao.mobility.kmcoupon.domain.coupon.Status
+import com.kakao.mobility.kmcoupon.dto.CouponWithMemberDto
 import com.kakao.mobility.kmcoupon.exception.CouponErrorMessage
 import com.kakao.mobility.kmcoupon.exception.EntityNotFoundException
 import com.kakao.mobility.kmcoupon.exception.InvalidRequestException
@@ -42,9 +43,20 @@ class CouponService(private val couponRepository: CouponRepository) {
         if (coupon.isMinAmountBiggerThan(itemAmount)) throw InvalidRequestException(CouponErrorMessage.COUPON_MIN_AMOUNT_NOT_SATISFIED)
         if (coupon.isNotUsableDuration(requestReceivedTime)) throw InvalidRequestException(CouponErrorMessage.COUPON_NOT_USABLE_DURATION)
 
-        // toUsed(), use()
-        coupon.used()
+        coupon.use()
 
         return coupon
+    }
+
+    @Transactional(readOnly = true)
+    fun getCouponListTest(
+        memberId: Long,
+        status: Status?
+    ): List<Coupon> {
+        return couponRepository.findAllByMemberIdAndStatus(memberId, status)
+    }
+
+    fun getCouponListMemberJoining(): List<CouponWithMemberDto> {
+        return couponRepository.findAllMemberJoining()
     }
 }

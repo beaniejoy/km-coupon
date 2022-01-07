@@ -41,7 +41,7 @@ class ServiceSecurityConfig(
 
             .and()
             .authorizeRequests()
-            .antMatchers("/api/v1/coupons/**").hasAnyRole("USER")
+            .antMatchers("/api/v1/coupons**").hasAnyRole("USER")
             .anyRequest().permitAll()
 
             .and()

@@ -1,11 +1,15 @@
 package com.kakao.mobility.kmcoupon.repository
 
 import com.kakao.mobility.kmcoupon.domain.coupon.Coupon
+import com.kakao.mobility.kmcoupon.domain.coupon.Status
+import com.kakao.mobility.kmcoupon.dto.CouponWithMemberDto
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
+import org.springframework.stereotype.Repository
 import java.util.*
 
+@Repository
 interface CouponRepository : JpaRepository<Coupon, Long> {
     @Query(
         value = "SELECT * " +
@@ -24,4 +28,11 @@ interface CouponRepository : JpaRepository<Coupon, Long> {
     ): List<Coupon>
 
     fun findByIdAndMemberId(id: Long, memberId: Long): Optional<Coupon>
+
+    fun findAllByMemberIdAndStatus(memberId: Long, status: Status?): List<Coupon>
+
+//    @Query("SELECT c FROM Coupon c JOIN FETCH Member m")
+    fun findAllMemberJoining(): List<CouponWithMemberDto>
+
+
 }

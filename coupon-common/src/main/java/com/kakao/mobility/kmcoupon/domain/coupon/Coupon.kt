@@ -1,6 +1,7 @@
 package com.kakao.mobility.kmcoupon.domain.coupon
 
 import com.kakao.mobility.kmcoupon.domain.BaseTimeEntity
+import com.kakao.mobility.kmcoupon.domain.member.Member
 import java.math.BigDecimal
 import java.time.LocalDateTime
 import javax.persistence.*
@@ -28,15 +29,20 @@ class Coupon(
     @Column(name = "status")
     var status: Status = Status.NORMAL,
 
-    // var val
-    @Column(name = "member_id")
-    var memberId: Long = 0L
+//    // var val
+//    @Column(name = "member_id")
+//    var memberId: Long = 0L,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    var member: Member
+
 ) : BaseTimeEntity() {
     fun isAlreadyUsed(): Boolean {
         return status == Status.USED
     }
 
-    fun used() {
+    fun use() {
         status = Status.USED
     }
 

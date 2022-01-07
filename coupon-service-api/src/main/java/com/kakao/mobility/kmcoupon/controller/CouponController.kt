@@ -2,10 +2,12 @@ package com.kakao.mobility.kmcoupon.controller
 
 import com.kakao.mobility.kmcoupon.service.CouponService
 import com.kakao.mobility.kmcoupon.domain.coupon.Coupon
+import com.kakao.mobility.kmcoupon.domain.coupon.Status
 import com.kakao.mobility.kmcoupon.domain.member.SecurityUser
 import com.kakao.mobility.kmcoupon.dto.CouponResponse
 import com.kakao.mobility.kmcoupon.dto.CouponUsedResponse
 import com.kakao.mobility.kmcoupon.dto.CouponUsingRequest
+import com.kakao.mobility.kmcoupon.dto.CouponWithMemberDto
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
 import org.springframework.security.core.context.SecurityContextHolder
@@ -57,6 +59,25 @@ class CouponController(
             payAmount = usedCoupon.calPayAmount(itemAmount),
             actualDiscountAmount = usedCoupon.calActualDiscountAmount(itemAmount)
         )
+    }
+
+    @GetMapping("")
+    @ApiOperation(value = "test 조회")
+    fun getAllCouponsTest(
+        @RequestParam("status") status: Status?
+    ): List<Coupon> {
+        return couponService.getCouponListTest(
+            memberId = getSecurityUser().memberId,
+            status = status
+        )
+    }
+
+    @GetMapping("/join")
+    @ApiOperation(value = "coupon, member join test 조회")
+    fun getAllCouponsWithMemberTest(
+        @RequestParam("status") status: Status?
+    ): List<CouponWithMemberDto> {
+        return couponService.getCouponListMemberJoining()
     }
 
     private fun getSecurityUser(): SecurityUser {
