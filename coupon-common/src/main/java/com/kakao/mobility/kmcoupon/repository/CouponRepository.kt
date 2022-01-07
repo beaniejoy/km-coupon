@@ -31,8 +31,6 @@ interface CouponRepository : JpaRepository<Coupon, Long> {
 
     fun findAllByMemberIdAndStatus(memberId: Long, status: Status?): List<Coupon>
 
-//    @Query("SELECT c FROM Coupon c JOIN FETCH Member m")
+//    @Query("SELECT c FROM Coupon c JOIN FETCH Member m") 이런 방식은 에러 발생(c.member 이런 방식이어야 될듯)
     fun findAllMemberJoining(): List<CouponWithMemberDto>
-
-
 }
